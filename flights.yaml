@@ -1,0 +1,18 @@
+---
+:Trip1:
+  :airline: bigJet
+  :flight_number: '883'
+  :destination: Redding, CA
+  :departure_time: '12:22'
+---
+:Trip2:
+  :airline: big2
+  :flight_number: '122'
+  :destination: city2
+  :departure_time: '2:55'
+---
+:TriptoSF:
+  :airline: Delta
+  :flight_number: '4422'
+  :destination: SFO
+  :departure_time: '11:33'
