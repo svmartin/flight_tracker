@@ -14,6 +14,9 @@
 
     <!-- Custom styles for this template -->
     <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+
+    <!-- jQuery -->
     <script src="/javascripts/jquery-3.1.1.js"></script>
   </head>
 
@@ -51,6 +54,17 @@
       </div>
       <p class="lead">L</p>
       <p>d</p>
+      <% if session[:success] %>
+      <div class="flash success">
+        <p><%= session.delete(:success) %></p>
+      </div>
+    <% end %>
+
+    <% if session[:error] %>
+      <div class="flash error">
+        <p><%= session.delete(:error) %></p>
+      </div>
+    <% end %>
     </div>
 
     <div class="container">
