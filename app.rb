@@ -4,6 +4,11 @@ require 'sinatra/reloader' if development?
 require 'tilt/erubis'
 require 'yaml'
 
+configure do
+  enable :sessions
+  set :session_secret, 'secret'
+end
+
 before do
   @flights = YAML.load_stream(File.read('flights.yaml'))
 end
@@ -47,23 +52,29 @@ end
 
 post "/save_flight" do
   user_flight_name = params[:user_given_flight_name]
-  airline = params[:airline]
-  flight_num = params[:flight_number]
-  depart_time = params[:departure_time]
-  destination = params[:destination]
 
-  new_flight = {
-    user_flight_name.to_sym => {
-      "airline".to_sym => airline,
-      "flight_number".to_sym => flight_num,
-      "destination".to_sym => destination,
-      "departure_time".to_sym => depart_time
+  if !(1..20).cover?(user_flight_name.size)
+    session[:error] = "flight needs a name"
+    erb :form, layout: :layout
+  else
+    airline = params[:airline]
+    flight_num = params[:flight_number]
+    depart_time = params[:departure_time]
+    destination = params[:destination]
+
+    new_flight = {
+      user_flight_name.to_sym => {
+        "airline".to_sym => airline,
+        "flight_number".to_sym => flight_num,
+        "destination".to_sym => destination,
+        "departure_time".to_sym => depart_time
+      }
     }
-  }
 
-  File.open("flights.yaml", "a+") do |f|
-    f << new_flight.to_yaml(Separator: false)
+    File.open("flights.yaml", "a+") do |f|
+      f << new_flight.to_yaml(Separator: false)
+    end
+
+    redirect "/flights"
   end
-
-  redirect "/flights"
 end

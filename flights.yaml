@@ -16,3 +16,15 @@
   :flight_number: '4422'
   :destination: SFO
   :departure_time: '11:33'
+---
+:Please name this flight.:
+  :airline: airline
+  :flight_number: flight number
+  :destination: destination
+  :departure_time: departure time
+---
+:avocadofestival:
+  :airline: airline
+  :flight_number: flight number
+  :destination: destination
+  :departure_time: departure time
