@@ -70,9 +70,11 @@ post "/save_flight" do
         "departure_time".to_sym => depart_time
       }
     }
+
     File.open("flights.yaml", "a+") do |f|
       f << new_flight.to_yaml(Separator: false)
     end
+
     redirect "/flights"
   end
 end
